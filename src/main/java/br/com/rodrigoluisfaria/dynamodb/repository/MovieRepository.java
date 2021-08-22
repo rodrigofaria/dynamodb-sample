@@ -10,15 +10,23 @@ import com.amazonaws.services.dynamodbv2.document.Table;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
+
 @Repository
 public class MovieRepository {
 
     @Value("${dynamodb.endpoint}")
     private String endpoint;
 
-    public MovieDTO create(MovieDTO movieDTO) {
+    private DynamoDB dynamoDB;
+
+    @PostConstruct
+    public void initialize() {
         AmazonDynamoDB client = createAmazonDynamoDBClient();
-        DynamoDB dynamoDB = new DynamoDB(client);
+        dynamoDB = new DynamoDB(client);
+    }
+
+    public MovieDTO create(MovieDTO movieDTO) {
         Table table = dynamoDB.getTable("movie");
 
         table.putItem(new Item()
