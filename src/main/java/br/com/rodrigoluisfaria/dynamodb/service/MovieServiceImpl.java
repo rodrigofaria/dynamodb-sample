@@ -15,4 +15,9 @@ public class MovieServiceImpl implements MovieService {
     public MovieDTO create(MovieDTO movieDTO) {
         return movieRepository.create(movieDTO);
     }
+
+    @Override
+    public MovieDTO findMovie(Integer year, String title) {
+        return movieRepository.findMovie(year, title);
+    }
 }

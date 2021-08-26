@@ -17,4 +17,8 @@ public class MovieController {
         return movieService.create(movieDTO);
     }
 
+    @GetMapping("/{year}/{title}")
+    public MovieDTO findMovie(@PathVariable Integer year, @PathVariable String title) {
+        return movieService.findMovie(year, title);
+    }
 }
